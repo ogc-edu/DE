@@ -1,0 +1,1 @@
+void init(double[][30], double, double, int, int*, int);

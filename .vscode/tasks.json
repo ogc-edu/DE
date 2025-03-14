@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "build best1",
+          "type": "shell",
+          "command": "g++",
+          "args": [
+              "-g",
+              "best1.cpp",
+              "random.cpp",
+              "binomialCross.cpp",
+              "greedySelection.cpp",
+              "init.cpp",
+              "fitnessEvaluation.cpp",
+              "-o",
+              "best1.exe"
+          ],
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          },
+          "problemMatcher": ["$gcc"]
+      }
+  ]
+}
