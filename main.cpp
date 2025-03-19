@@ -55,7 +55,7 @@ int main()
     for (int repeat = 0; repeat < 10; repeat++)
     {
       set1(&CR, &f);
-      double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension], positionFV[pSize], trialFV[pSize], worstFV;
+      double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension];
       double bestSolution[30], bestFitness = pow(99, 99);
       double rangeMin, rangeMax;
       /*
@@ -141,8 +141,8 @@ int main()
           break;
         }
 
-        binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-        // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+        // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+        exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
 
         greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
 
