@@ -102,7 +102,7 @@ double fitness(double a[], int bench)
         }
         for (int i = 0; i < dimension; i++)
         {
-            x2 += (0.5 * (i + 1) * a[i]);
+            x2 += (0.5 * a[i]);
         }
         return x1 + pow(x2, 2) + pow(x2, 4);
     }
@@ -110,11 +110,18 @@ double fitness(double a[], int bench)
     {
         // griewank
         float sumFit1 = 0, sumFit2 = 1;
+        // for (int i = 0; i < dimension; i++)
+        // {
+        //     sumFit1 += (pow(a[i], 2) / 4000);
+        //     sumFit2 *= cos(a[i] / sqrt(i + 1));
+        // }
+        // return sumFit1 - sumFit2 + 1;
         for (int i = 0; i < dimension; i++)
         {
-            sumFit1 += (pow(a[i], 2) / 4000);
+            sumFit1 += pow(a[i], 2);
             sumFit2 *= cos(a[i] / sqrt(i + 1));
         }
+        sumFit1 /= 4000;
         return sumFit1 - sumFit2 + 1;
     }
     else if (bench == 9)

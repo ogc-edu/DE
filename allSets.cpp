@@ -46,29 +46,17 @@ void set3(float *cr, float *f)
   *f = 0.50;
 }
 
-double average(double array[])
-{
-  double sum;
-  for (int i = 0; i < 10; i++)
-  {
-    sum += array[i];
-  }
-  return sum / 10.0;
-}
-
 int main()
 {
   string name;
-  ofstream outFile2("all.txt", ios::app);       // best throughout 2000
-  ofstream outFileAverage("avg.txt", ios::app); // best throughout 2000
-  for (int bench = 7; bench < 8; bench++)       // loop through benchmarks
+  ofstream outFile2("set22.txt", ios::app);
+  for (int bench = 0; bench < 10; bench++) // diff benchmark
   {
     for (int m = 0; m < 10; m++) // diff mutation loop
     {
-      double best[10];
-      for (int repeat = 0; repeat < 10; repeat++)
+      for (int repeat = 0; repeat < 10; repeat++) // repeat for 10 times for each mutation and benchmark
       {
-        set1(&CR, &f);
+        set2(&CR, &f);
         double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension];
         double bestSolution[30], bestFitness = pow(99, 99);
         double rangeMin, rangeMax;
@@ -86,7 +74,6 @@ int main()
         8 Griewank Function [-600, 600]
         9 Quarctic with Noise Function [-1.28, 1.28]
         */
-        // int bench = 8;
         int bestPos;
 
         updateRange(&rangeMin, &rangeMax, bench); // update min and max range according to benchmark function
@@ -94,8 +81,8 @@ int main()
 
         cout << "Start now" << endl;
 
-        ofstream clearFile("output.txt", ios::trunc);
-        ofstream outFile("output.txt", ios::app); // best in gen
+        ofstream clearFile("output.txt", ios::trunc); // clear content
+        ofstream outFile("output.txt", ios::app);     // Open file in append mode
 
         for (int i = 0; i < gen; i++)
         {
@@ -166,17 +153,15 @@ int main()
         cout << "The best fitness value is " << scientific << setprecision(20) << bestFitness << "\n"
              << "The best solution " << endl;
         outFile2 << bestFitness << endl;
-        best[repeat] = bestFitness;
         for (int i = 0; i < 30; i++)
         {
           cout << bestSolution[i] << endl;
         }
       }
+      outFile2 << name << endl;
       outFile2 << "" << endl;
-      double avg = average(best);
-      outFileAverage << avg << endl;
     }
   }
 }
 
-// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/All6.exe
+// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./allSets.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/set2.exe
