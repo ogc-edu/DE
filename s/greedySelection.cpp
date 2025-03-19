@@ -6,7 +6,7 @@
 using namespace std;
 void greedySelection(double positionVector[][30], double trialVector[][30], int bench, int np, double bestSolution[30], double *pastBestFV, int *genBestPos)
 {
-  cout << fixed << setprecision(40);
+  cout << fixed << setprecision(10);
   double positionFV[40], trialFV[40]; // store fv  of position vector and trial vector
   double genLowestFV = pow(30, 30);
   int bestPos;
@@ -35,7 +35,7 @@ void greedySelection(double positionVector[][30], double trialVector[][30], int 
 
   if (genLowestFV < *pastBestFV) // if the lowest gen is better than past best
   {
-    cout << "Lowest better, past: " << *pastBestFV << " newest: " << genLowestFV << "\t" << "Old position: " << *genBestPos << " New Pos: " << bestPos << endl;
+    // cout << "Lowest better, past: " << *pastBestFV << " newest: " << genLowestFV << "\t" << "Old position: " << *genBestPos << " New Pos: " << bestPos << endl;
     *pastBestFV = genLowestFV;
     *genBestPos = bestPos;
 

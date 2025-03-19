@@ -10,24 +10,11 @@
 #include <unordered_set>
 #include <fstream>
 #include <iomanip>
+#include "../m/unique.h"
 
 using namespace std;
 // const int gen = 2000, dimension = 30, pSize = 40;
 // float CR = 0.00, f = 0.0;
-
-bool areAllUnique(int arr[], int size)
-{
-  unordered_set<int> seen;
-  for (int i = 0; i < size; ++i)
-  {
-    if (seen.find(arr[i]) != seen.end())
-    {
-      return false; // Duplicate found
-    }
-    seen.insert(arr[i]);
-  }
-  return true; // All elements are unique
-}
 
 void Best3Mutation(double positionVector[][30], double mutantVector[][30], int np, float f, double rangeMin, double rangeMax, int bench, int bestPos)
 {
@@ -48,7 +35,8 @@ void Best3Mutation(double positionVector[][30], double mutantVector[][30], int n
     } while (unique == false);
     for (int j = 0; j < 30; j++)
     {
-      mutantVector[i][j] = positionVector[bestPos][j] + f * (positionVector[target[0]][j] - positionVector[target[1]][j]) + f * (positionVector[target[2]][j] - positionVector[target[3]][j]) + f * (positionVector[target[4]][j] - positionVector[target[5]][j]);
+      // mutantVector[i][j] = positionVector[bestPos][j] + f * (positionVector[target[0]][j] - positionVector[target[1]][j]) + f * (positionVector[target[2]][j] - positionVector[target[3]][j]) + f * (positionVector[target[4]][j] - positionVector[target[5]][j]);
+      mutantVector[i][j] = positionVector[bestPos][j] + f * (positionVector[target[0]][j] - positionVector[target[1]][j] + positionVector[target[2]][j] - positionVector[target[3]][j] + positionVector[target[4]][j] - positionVector[target[5]][j]);
       if (mutantVector[i][j] > rangeMax)
       {
         mutantVector[i][j] = rangeMax;

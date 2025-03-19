@@ -72,7 +72,7 @@ int main()
       8 Griewank Function [-600, 600]
       9 Quarctic with Noise Function [-1.28, 1.28]
       */
-      int bench = 9;
+      int bench = 3;
       int bestPos;
 
       updateRange(&rangeMin, &rangeMax, bench); // update min and max range according to benchmark function
@@ -85,61 +85,16 @@ int main()
 
       for (int i = 0; i < gen; i++)
       {
-        switch (m)
-        {
-        case 0:
-          Best1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
-          name = "BEST 1";
-          break;
-
-        case 1:
-          Best2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
-          name = "BEST 2";
-          break;
-
-        case 2:
-          Best3Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
-          name = "BEST 3";
-          break;
-
-        case 3:
-          currentToBest_1_Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
-          name = "cur to BEST 1";
-          break;
-
-        case 4:
-          currentToBest_2_Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
-          name = "Cur to Best 2";
-          break;
-
-        case 5:
-          currentToRand1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
-          name = "cur to rand 1";
-          break;
-
-        case 6:
-          currentToRand2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
-          name = "cur to rand 2";
-          break;
-
-        case 7:
-          rand1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
-          name = "rand 1";
-          break;
-
-        case 8:
-          rand2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
-          name = "rand 2";
-          break;
-
-        case 9:
-          rand3Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
-          name = "rand 3";
-          break;
-
-        default:
-          break;
-        }
+        // Best1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
+        // Best2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
+        // Best3Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
+        // currentToBest_1_Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
+        // currentToBest_2_Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
+        // currentToRand1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
+        // currentToRand2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
+        // rand1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
+        // rand2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
+        // rand3Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
 
         binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
         // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
@@ -147,10 +102,10 @@ int main()
         greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
 
         outFile << bestFitness << endl;
-        // if (i % 10 == 0)
-        // {
-        //   // cout << "Gen " << i << " best index " << bestPos << endl;
-        // }
+        if (i % 10 == 0)
+        {
+          cout << "Gen " << i << " best index " << bestPos << endl;
+        }
       }
 
       cout << "The best fitness value is " << scientific << setprecision(20) << bestFitness << "\n"

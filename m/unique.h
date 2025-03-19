@@ -1,0 +1,1 @@
+bool areAllUnique(int arr[], int size);

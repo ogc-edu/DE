@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES // define use_math_defines macro before including <math.h>
 #include <math.h>
 #define dimension 30 // number of bits (dimension size)
+#include "random.h"
 
 using namespace std;
 
@@ -119,7 +120,12 @@ double fitness(double a[], int bench)
     else if (bench == 9)
     {
         // Quarctic with Noise function
-        return 0;
+        fv = 0;
+        for (int i = 0; i < dimension; i++)
+        {
+            fv += (i * pow(a[i], 4)) + generateRandomFloat();
+        }
+        return fv;
     }
 
     else

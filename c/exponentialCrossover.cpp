@@ -28,7 +28,7 @@ void exponentialCrossover(double targetVector[][30], double mutantVector[][30], 
       }
       crossoverMask[startDimension] = true; // crossover happen at current position
       generatedCR = generateRandomFloat();
-      success = (generatedCR <= crRate);
+      success = (generatedCR <= crRate); // success binomial experiment
       startDimension++;
       loopCount++;
       if (loopCount > 29)

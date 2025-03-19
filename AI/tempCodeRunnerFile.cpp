@@ -1,0 +1,1 @@
+std::cout << "Best fitness: " << std::scientific << std::setprecision(20) << de.get_best_fitness() << std::endl;

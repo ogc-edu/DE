@@ -10,22 +10,9 @@
 #include <unordered_set>
 #include <fstream>
 #include <iomanip>
+#include "../m/unique.h"
 
 using namespace std;
-
-bool areAllUnique(int arr[], int size)
-{
-  unordered_set<int> seen;
-  for (int i = 0; i < size; ++i)
-  {
-    if (seen.find(arr[i]) != seen.end())
-    {
-      return false; // Duplicate found
-    }
-    seen.insert(arr[i]);
-  }
-  return true; // All elements are unique
-}
 
 void currentToBest_2_Mutation(double positionVector[][30], double mutantVector[][30], int np, float f, double rangeMin, double rangeMax, int bench, int bestPos)
 {
