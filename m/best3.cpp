@@ -1,16 +1,7 @@
 #include <iostream>
-#include "../init.h"
 #include "../random.h"
-#include "../c/binomialCross.h"
-#include "../fitnessEvaluation.h"
-#include "../s/greedySelection.h"
-#include "../c/exponentialCrossover.h"
-#include <vector>
-#include <math.h>
-#include <unordered_set>
-#include <fstream>
-#include <iomanip>
 #include "../m/unique.h"
+#include <cmath>
 
 using namespace std;
 // const int gen = 2000, dimension = 30, pSize = 40;
@@ -21,7 +12,6 @@ void Best3Mutation(double positionVector[][30], double mutantVector[][30], int n
   const int randomSize = 6;
   int target[randomSize];
   bool unique;
-  double bestFV = pow(30, 30), fv;
 
   for (int i = 0; i < np; i++)
   {

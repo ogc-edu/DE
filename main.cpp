@@ -15,7 +15,7 @@
 #include "./m/rand3.h"
 
 #include "./c/binomialCross.h"
-#include "./c/exponentialCrossover.h"
+#include "./c/exponentialCross.h"
 #include "./s/greedySelection.h"
 
 #include <vector>
@@ -48,7 +48,7 @@ void set3(float *cr, float *f)
 
 int main()
 {
-  string name = "BEST 1";
+  string name;
   ofstream outFile2("bestFitness.txt", ios::app);
   for (int m = 0; m < 10; m++)
   {
@@ -147,10 +147,6 @@ int main()
         greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
 
         outFile << bestFitness << endl;
-        // if (i % 10 == 0)
-        // {
-        //   // cout << "Gen " << i << " best index " << bestPos << endl;
-        // }
       }
 
       cout << "The best fitness value is " << scientific << setprecision(20) << bestFitness << "\n"
@@ -160,38 +156,10 @@ int main()
       {
         cout << bestSolution[i] << endl;
       }
-      // for (int i = 0; i < 30; i++)
-      //   {
-      //     cout << fixed << setprecision(15) << positionVector[30][i] << "\t" << positionVector[31][i] << "\t" << positionVector[32][i] << "\t" << positionVector[33][i] << "\t" << positionVector[34][i] << "\t" << positionVector[35][i] << "\t" << positionVector[36][i] << "\t" << positionVector[37][i] << "\t" << positionVector[38][i] << "\t" << positionVector[39][i] << endl;
-      //   }
     }
     outFile2 << name << endl;
     outFile2 << "" << endl;
   }
 }
 
-// g++ ./m/best1.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/best1BG.exe
-// g++ ./m/best2.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/best2BG.exe
-// g++ ./m/best3.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/best3BG.exe
-// g++ ./m/best1.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/best1BG.exe
-// g++ ./m/best2.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/best2BG.exe
-// g++ ./m/best3.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/best3BG.exe
-
-// g++ ./m/currentToBest1.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToBest1BG.exe
-// g++ ./m/currentToBest2.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToBest2BG.exe
-// g++ ./m/currentToBest1.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToBest2BG.exe
-// g++ ./m/currentToBest2.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToBest2BG.exe
-
-// g++ ./m/currentToRand1.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToRand1BG.exe
-// g++ ./m/currentToRand2.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToRand2BG.exe
-// g++ ./m/currentToRand1.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToRand2BG.exe
-// g++ ./m/currentToRand2.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/currentToRand2BG.exe
-
-// g++ ./m/rand1.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand1BG.exe
-// g++ ./m/rand2.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand2BG.exe
-// g++ ./m/rand3.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand3BG.exe
-// g++ ./m/rand1.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand1EG.exe
-// g++ ./m/rand2.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand2EG.exe
-// g++ ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand3EG.exe
-
-// g++ ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/All6.exe
+// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/All6.exe

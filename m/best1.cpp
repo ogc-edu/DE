@@ -1,13 +1,5 @@
 #include <iostream>
-#include "../init.h"
 #include "../random.h"
-#include "../c/binomialCross.h"
-#include "../fitnessEvaluation.h"
-#include "../s/greedySelection.h"
-#include <vector>
-#include <math.h>
-#include <unordered_set>
-#include <fstream>
 #include "../m/unique.h"
 
 using namespace std;

@@ -119,13 +119,12 @@ double fitness(double a[], int bench)
     }
     else if (bench == 9)
     {
-        // Quarctic with Noise function
-        fv = 0;
+        // Quartic with Noise function
         for (int i = 0; i < dimension; i++)
         {
-            fv += (i * pow(a[i], 4)) + generateRandomFloat();
+            sumFit += ((i + 1) * pow(a[i], 4)) + generateRandomFloat();
         }
-        return fv;
+        return sumFit;
     }
 
     else

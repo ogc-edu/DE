@@ -1,4 +1,4 @@
-#include "exponentialCrossover.h"
+#include "exponentialCross.h"
 #include <iostream>
 #include <random>
 #include "../random.h"

@@ -1,16 +1,6 @@
 #include <iostream>
-#include "../init.h"
 #include "../random.h"
-#include "../c/binomialCross.h"
-#include "../fitnessEvaluation.h"
-#include "../s/greedySelection.h"
-#include <vector>
-#include <math.h>
-#include <unordered_set>
-#include <fstream>
-#include <iomanip>
 #include "../m/unique.h"
-
 using namespace std;
 
 void currentToRand1Mutation(double positionVector[][30], double mutantVector[][30], int np, float f, double rangeMin, double rangeMax, int bench)

@@ -1,8 +1,5 @@
 #include <iostream>
 #include "../random.h"
-#include "../fitnessEvaluation.h"
-#include <math.h>
-#include <unordered_set>
 #include "../m/unique.h"
 
 using namespace std;
