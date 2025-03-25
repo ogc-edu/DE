@@ -34,18 +34,6 @@ void set1(float *cr, float *f)
   *f = 0.30;
 }
 
-void set2(float *cr, float *f)
-{
-  *cr = 0.90;
-  *f = 0.50;
-}
-
-void set3(float *cr, float *f)
-{
-  *cr = 0.80;
-  *f = 0.50;
-}
-
 double average(double array[])
 {
   double sum;
@@ -59,9 +47,9 @@ double average(double array[])
 int main()
 {
   string name;
-  ofstream outFile2("all.txt", ios::app);       // best throughout 2000
-  ofstream outFileAverage("avg.txt", ios::app); // best throughout 2000
-  for (int bench = 7; bench < 8; bench++)       // loop through benchmarks
+  ofstream outFile2("allExponential.txt", ios::trunc);  // best throughout 2000
+  ofstream outFileAverage("allExpAvg.txt", ios::trunc); // average of 10 iteration of the same mutation
+  for (int bench = 0; bench < 10; bench++)              // loop through benchmarks
   {
     for (int m = 0; m < 10; m++) // diff mutation loop
     {
@@ -86,20 +74,14 @@ int main()
         8 Griewank Function [-600, 600]
         9 Quarctic with Noise Function [-1.28, 1.28]
         */
-        // int bench = 8;
+
         int bestPos;
+        updateRange(&rangeMin, &rangeMax, bench);                         // update min and max range according to benchmark function
+        init(positionVector, rangeMin, rangeMax, pSize, &bestPos, bench); // initialize position vectors
 
-        updateRange(&rangeMin, &rangeMax, bench); // update min and max range according to benchmark function
-        init(positionVector, rangeMin, rangeMax, pSize, &bestPos, bench);
-
-        cout << "Start now" << endl;
-
-        ofstream clearFile("output.txt", ios::trunc);
-        ofstream outFile("output.txt", ios::app); // best in gen
-
-        for (int i = 0; i < gen; i++)
+        for (int i = 0; i < gen; i++) // start iteration for 2000 generations
         {
-          switch (m)
+          switch (m) // mutation scheme
           {
           case 0:
             Best1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
@@ -155,26 +137,21 @@ int main()
             break;
           }
 
-          binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-          // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-
+          // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+          exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
           greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
+        } // end of each generation
 
-          outFile << bestFitness << endl;
-        }
-
-        cout << "The best fitness value is " << scientific << setprecision(20) << bestFitness << "\n"
-             << "The best solution " << endl;
-        outFile2 << bestFitness << endl;
-        best[repeat] = bestFitness;
-        for (int i = 0; i < 30; i++)
+        outFile2 << setprecision(8) << bestFitness << endl; // output best fitness throughout 2000 gen(one iteration)
+        best[repeat] = bestFitness;                         // record best fitness throughout 10 iterations
+        for (int i = 0; i < 30; i++)                        // output best solution in each iteration
         {
           cout << bestSolution[i] << endl;
         }
       }
       outFile2 << "" << endl;
       double avg = average(best);
-      outFileAverage << avg << endl;
+      outFileAverage << setprecision(8) << avg << endl;
     }
   }
 }

@@ -49,12 +49,11 @@ void set3(float *cr, float *f)
 
 int main()
 {
-  string name = "BEST 1";
   ofstream outFile2("bestFitness.txt", ios::app);
 
   for (int repeat = 0; repeat < 1; repeat++)
   {
-    set2(&CR, &f);
+    set1(&CR, &f);
     double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension], positionFV[pSize], trialFV[pSize], worstFV;
     double bestSolution[30], bestFitness = pow(99, 99);
     double rangeMin, rangeMax;
@@ -79,10 +78,8 @@ int main()
     init(positionVector, rangeMin, rangeMax, pSize, &bestPos, bench);
 
     cout << "Start now" << endl;
-
     ofstream clearFile("output.txt", ios::trunc); //
     ofstream outFile("output.txt", ios::app);     // output each gen best
-
     for (int i = 0; i < gen; i++)
     {
       Best1Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench, bestPos);
@@ -96,8 +93,8 @@ int main()
       // rand2Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
       // rand3Mutation(positionVector, mutantVector, pSize, f, rangeMin, rangeMax, bench);
 
-      binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-      // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+      // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+      exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
 
       greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
 
@@ -108,19 +105,14 @@ int main()
       }
     }
 
-    cout << "The best fitness value is " << scientific << setprecision(20) << bestFitness << "\n"
-         << "The best solution " << endl;
+    cout << "The best fitness value is " << scientific << setprecision(10) << bestFitness << "\n";
     outFile2 << bestFitness << endl;
     for (int i = 0; i < 30; i++)
     {
-      cout << bestSolution[i] << endl;
+      cout << bestSolution[i] << "\t" << positionVector[bestPos][i] << endl;
     }
-    // for (int i = 0; i < 30; i++)
-    //   {
-    //     cout << fixed << setprecision(15) << positionVector[30][i] << "\t" << positionVector[31][i] << "\t" << positionVector[32][i] << "\t" << positionVector[33][i] << "\t" << positionVector[34][i] << "\t" << positionVector[35][i] << "\t" << positionVector[36][i] << "\t" << positionVector[37][i] << "\t" << positionVector[38][i] << "\t" << positionVector[39][i] << endl;
-    //   }
+    cout << endl;
   }
-  outFile2 << name << endl;
   outFile2 << "" << endl;
 }
 
@@ -148,4 +140,4 @@ int main()
 // g++ ./m/rand2.cpp random.cpp ./individual.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand2EG.exe
 // g++ ./m/rand3.cpp random.cpp ./individual.cpp ./c/exponentialCrossover.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/rand3EG.exe
 
-// g++ ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./individual.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/All6.exe
+// g++ ./m/best1.cpp ./m/best2.cpp ./m/unique.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./individual.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/All6.exe
