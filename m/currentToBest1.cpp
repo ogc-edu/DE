@@ -8,7 +8,7 @@ void currentToBest_1_Mutation(double positionVector[][30], double mutantVector[]
 {
   // X = Xi + f(Xbest - Xi) + f(X1 - X2);
   const int randomSize = 2;
-  int target[randomSize];
+  int random[randomSize];
   bool unique;
 
   for (int i = 0; i < np; i++)
@@ -17,13 +17,15 @@ void currentToBest_1_Mutation(double positionVector[][30], double mutantVector[]
     {
       for (int k = 0; k < randomSize; k++)
       {
-        target[k] = static_cast<int>(generateRandomFloat() * np);
+        random[k] = static_cast<int>(generateRandomFloat() * np);
       }
-      unique = areAllUnique(target, randomSize);
+      unique = areAllUnique(random, randomSize);
+      if (random[0] == i || random[1] == i) // r1, r2 != i
+        unique = false;
     } while (unique == false);
     for (int j = 0; j < 30; j++)
     {
-      mutantVector[i][j] = positionVector[i][j] + f * (positionVector[bestPos][j] - positionVector[i][j]) + f * (positionVector[target[0]][j] - positionVector[target[1]][j]);
+      mutantVector[i][j] = positionVector[i][j] + f * (positionVector[bestPos][j] - positionVector[i][j]) + f * (positionVector[random[0]][j] - positionVector[random[1]][j]);
       if (mutantVector[i][j] > rangeMax)
       {
         mutantVector[i][j] = rangeMax;

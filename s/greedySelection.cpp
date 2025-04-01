@@ -41,7 +41,7 @@ void greedySelection(double positionVector[][30], double trialVector[][30], int 
 
   if (genLowestFV < *pastBestFV) // if the lowest gen is better than past best
   {
-    cout << "Lowest better, past: " << *pastBestFV << " newest: " << genLowestFV << "\t" << "Old position: " << *genBestPos << " New Pos: " << bestPos << endl;
+    // cout << "Lowest better, past: " << *pastBestFV << " newest: " << genLowestFV << "\t" << "Old position: " << *genBestPos << " New Pos: " << bestPos << endl;
     *pastBestFV = genLowestFV;
     *genBestPos = bestPos;
 
