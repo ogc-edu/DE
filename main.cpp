@@ -49,7 +49,7 @@ int main()
 {
   ofstream outFileMin("allBinomial.txt", ios::trunc);   // best throughout 2000
   ofstream outFileAverage("allBinAvg.txt", ios::trunc); // average of 10 iteration of the same mutation
-  ofstream outTime("time.txt", ios::trunc);
+  ofstream outTime("timeBin.txt", ios::trunc);
   for (int bench = 0; bench < 10; bench++) // loop through benchmarks
   {
     for (int m = 0; m < 10; m++) // diff mutation loop
@@ -63,7 +63,7 @@ int main()
         double bestSolution[30], bestFitness = pow(99, 99);
         double rangeMin, rangeMax;
         /*
-        f0 - f3 = U
+        f0 - f4 = U
         f4 - f9 = M
         0 Axis Parallel Hyper-Ellipsoid [-5.12, 5.12]
         1 Sum of Different Powers [-1,1]
@@ -145,6 +145,7 @@ int main()
         chrono::duration<double> elapsed = end - start;
         outTime << elapsed.count() << endl;
       }
+      outTime << "" << endl;
       outFileMin << "" << endl;
       double avg = average(tenIterationMin);
       outFileAverage << setprecision(15) << avg << endl;

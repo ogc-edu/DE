@@ -22,6 +22,11 @@ void currentToBest_2_Mutation(double positionVector[][30], double mutantVector[]
       unique = areAllUnique(random, randomSize);
       if (random[0] == i || random[1] == i || random[2] == i || random[3] == i) // r1, r2, r3, r4 != i
         unique = false;
+      for (int k = 0; k < randomSize; k++)
+      {
+        if (random[k] == bestPos)
+          unique = false;
+      }
     } while (unique == false);
     for (int j = 0; j < 30; j++)
     {

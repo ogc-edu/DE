@@ -7,18 +7,24 @@ using namespace std;
 void Best2Mutation(double positionVector[][30], double mutantVector[][30], int np, float f, double rangeMin, double rangeMax, int bench, int bestPos)
 {
   // Xi = Xbest + f(Xr1 - Xr2) + f(Xr3 - Xr4)
-  int random[4];
+  const int randomSize = 4;
+  int random[randomSize];
   bool unique;
 
   for (int i = 0; i < np; i++)
   {
     do
     {
-      for (int k = 0; k < 4; k++)
+      for (int k = 0; k < randomSize; k++)
       {
-        random[k] = static_cast<int>(generateRandomFloat() * np);
+        random[k] = static_cast<int>(generateRandomFloat() * np); // make sure 4 unique diff vector
       }
       unique = areAllUnique(random, 4);
+      for (int k = 0; k < 4; k++)
+      {
+        if (random[k] == bestPos) // make sure all diff vector diff with best vector
+          unique = false;
+      }
     } while (unique == false);
     for (int j = 0; j < 30; j++)
     {
