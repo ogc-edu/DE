@@ -37,7 +37,7 @@ void set1(float *cr, float *f)
 
 double average(double array[])
 {
-  double sum;
+  double sum = 0;
   for (int i = 0; i < 10; i++)
   {
     sum += array[i];
@@ -47,14 +47,16 @@ double average(double array[])
 
 int main()
 {
-  ofstream outFileMin("allBinomial.txt", ios::trunc);   // best throughout 2000
-  ofstream outFileAverage("allBinAvg.txt", ios::trunc); // average of 10 iteration of the same mutation
-  ofstream outTime("timeBin.txt", ios::trunc);
-  for (int bench = 0; bench < 10; bench++) // loop through benchmarks
+  ofstream outFileMin("exponential.txt", ios::trunc);            // output best solution in each generation
+  ofstream outFileAverage("exponentialAverage.txt", ios::trunc); // output average best solution for each 10 iterations
+  ofstream outTime("exponentialTime.txt", ios::trunc);           // output time taken for each iteration
+  ofstream outAverageTime("exponentialAvgTime.txt", ios::trunc);
+  for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
   {
-    for (int m = 0; m < 10; m++) // diff mutation loop
+    for (int m = 0; m < 10; m++) // mutation loop
     {
-      double tenIterationMin[10];
+      double fitnessAvg[10]; // best solution in each iteration, refresh for each new mutation
+      double timeAvg[10];
       for (int repeat = 0; repeat < 10; repeat++)
       {
         auto start = chrono::high_resolution_clock::now();
@@ -68,12 +70,12 @@ int main()
         0 Axis Parallel Hyper-Ellipsoid [-5.12, 5.12]
         1 Sum of Different Powers [-1,1]
         2 Rotated Hyper-Ellipsoid Function [-65.536, 65.536]
-        3 Schewefel 2.22 Function [-10, 10]
-        4 Sphere Function [-5.12, 5.12]
-        5 Ackley Function [-30, 30]
-        6 Rastrigin Function [-5.12, 5.12]
+        3 Schewefel 2.22 Function [-10, 10] -unimodal, saparable
+        4 Sphere Function [-5.12, 5.12] -unimodal, saparable
+        5 Ackley Function [-30, 30]  -multimodal, non-separable
+        6 Rastrigin Function [-5.12, 5.12] -multimodal, saparable
         7 Zakharov Function [-5, 10]
-        8 Griewank Function [-600, 600]
+        8 Griewank Function [-600, 600] -multimodal, non-separable
         9 Quarctic with Noise Function [-1.28, 1.28]
         */
 
@@ -136,21 +138,24 @@ int main()
         } // end of each generation
 
         outFileMin << setprecision(15) << bestFitness << endl; // output best fitness throughout 2000 gen(one iteration)
-        tenIterationMin[repeat] = bestFitness;                 // record best fitness throughout 10 iterations
         for (int i = 0; i < 30; i++)                           // output best solution in each iteration
         {
           cout << bestSolution[i] << endl;
         }
+        fitnessAvg[repeat] = bestFitness; // record best fitness throughout 10 iterations
         auto end = chrono::high_resolution_clock::now();
         chrono::duration<double> elapsed = end - start;
-        outTime << elapsed.count() << endl;
-      }
+        outTime << elapsed.count() << endl; // output time for each iteration
+        timeAvg[repeat] = elapsed.count();
+      } // end of 10 iterations
       outTime << "" << endl;
       outFileMin << "" << endl;
-      double avg = average(tenIterationMin);
-      outFileAverage << setprecision(15) << avg << endl;
+      double avgFV = average(fitnessAvg);
+      double avgTime = average(timeAvg);
+      outFileAverage << setprecision(15) << avgFV << endl;
+      outAverageTime << setprecision(15) << avgTime << endl;
     }
   }
 }
 
-// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/main.exe
+// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binomial.exe
