@@ -15,7 +15,7 @@ void binomialCrossover(double targetVector[][30], double mutantVector[][30], dou
   for (int i = 0; i < np; i++)
   {
     // Ensure at least one dimension comes from mutant vector
-    int d_rand = static_cast<int>(generateRandomFloat() * 30);
+    int d_rand = static_cast<int>(generateRandomFloat() * 30); // static_cast to int, make sure range within [0, 29]
 
     for (int j = 0; j < 30; j++)
     {

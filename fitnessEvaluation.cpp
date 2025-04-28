@@ -7,7 +7,8 @@
 
 using namespace std;
 
-float fv = 0, sumFit = 0;
+float fv = 0;
+double sumFit = 0;
 
 double fitness(double a[], int bench)
 {
@@ -123,9 +124,9 @@ double fitness(double a[], int bench)
         // Quartic with Noise function
         for (int i = 0; i < dimension; i++)
         {
-            sumFit += ((i + 1) * pow(a[i], 4)) + generateRandomFloat();
+            sumFit += ((i + 1) * pow(a[i], 4));
         }
-        return sumFit;
+        return sumFit + generateRandomFloat();
     }
 
     else
