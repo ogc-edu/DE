@@ -1,15 +1,20 @@
 #include <iostream>
 #include "../fitnessEvaluation.h"
 #include <math.h>
-#include <iomanip>
 
 using namespace std;
 void greedySelection(double positionVector[][30], double trialVector[][30], int bench, int np, double bestSolution[30], double *pastBestFV, int *genBestPos)
 {
-  cout << fixed << setprecision(10);
+  /*
+  1) Replace position vector with trial vector if trial is better solution
+  2) Identify the best solution in one generation
+  3) Compare with past best solution, if better then replace past best solution with current best solution
+  */
+
   double positionFV[40], trialFV[40]; // store fv  of position vector and trial vector
   double genLowestFV = pow(30, 30);
   int bestPos;
+
   for (int i = 0; i < np; i++) // selection occurs
   {
     positionFV[i] = fitness(positionVector[i], bench);
@@ -24,8 +29,8 @@ void greedySelection(double positionVector[][30], double trialVector[][30], int 
     }
   }
 
-  for (int i = 0; i < np; i++)
-  { // find the lowest FV in one gen
+  for (int i = 0; i < np; i++) // find the lowest FV in generation to compare with best solution
+  {
     if (positionFV[i] < genLowestFV)
     {
       genLowestFV = positionFV[i];
