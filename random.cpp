@@ -37,4 +37,5 @@ double generateRandomDouble(double min, double max)
 //             exit(1);
 //         }
 //     }
+//     return 0;
 // }
