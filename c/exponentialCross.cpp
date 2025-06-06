@@ -18,7 +18,7 @@ void exponentialCrossover(double targetVector[][30], double mutantVector[][30], 
     // Perform exponential crossover
     int currentDimension = (startDimension + 1) % 30;
 
-    while (crossoverCount < 30)
+    while (crossoverCount < 30) // at most 29 dimension exchanged
     {
       if (generateRandomFloat() > crRate)
       { // binomial experiment failed
