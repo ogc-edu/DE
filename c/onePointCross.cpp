@@ -1,0 +1,26 @@
+#include <iostream>
+#include "random.h";
+
+using namespace std;
+
+void onePointCross(double targetVector[][30], double mutantVector[][30], double trialVector[][30], float Cr, int np)
+{
+  for (int i = 0; i < np; i++)
+  {
+    float rand = generateRandomFloat(); // generate random float for each target vector
+    if (rand <= Cr)
+    {
+      int pos = generateRandomFloat() * 30;
+      if (pos == 0)
+        pos = 1;                    // ensure trial vector is diff from parents
+      for (int j = 0; j < pos; j++) // before pos taken from target vector
+      {
+        trialVector[i][j] = targetVector[i][j];
+      }
+      for (int j = pos; j < 30; j++) // start from pos taken from mutant vector
+      {
+        trialVector[i][j] = mutantVector[i][j];
+      }
+    }
+  }
+}
