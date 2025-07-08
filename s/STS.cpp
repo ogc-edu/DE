@@ -56,12 +56,13 @@ void sts(double positionVector[][30], double trialVector[][30], int n, int bench
     }
     nth_element(combined.begin(), combined.begin() + ss, combined.end(), [](const auto &a, const auto &b)
                 { return a.first < b.first; });
+    int currentPos;
     for (int j = 0; j < ss; j++)
     {
       for (int k = 0; k < 30; k++)
       {
+        currentPos = (pos - ss + j) % 40;
         positionVector[pos - ss + j][k] = combined[j].second[k]; // copy array
-        // prevent index overflow
       }
     }
   }

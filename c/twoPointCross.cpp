@@ -1,5 +1,6 @@
 #include <iostream>
 #include "random.h"
+#include <algorithm>
 #define dimension 30
 
 using namespace std;
@@ -11,12 +12,18 @@ void twoPointCross(double targetVector[][30], double mutantVector[][30], double 
     float rand = generateRandomFloat();
     if (rand <= Cr)
     {
-      float pos1, pos2;
+      int pos1, pos2;
       do
       {
         pos1 = generateRandomFloat() * dimension;
         pos2 = generateRandomFloat() * dimension;
-      } while ((pos1 != pos2) && (abs(pos1 - pos2) < dimension)); // ensure unique pos and duplicated parent
+      } while (pos1 != pos2); // ensure unique pos and duplicated parent
+
+      if (pos1 > pos2)
+      { // ensure pos1 always before pos2
+        swap(pos1, pos2);
+      }
+
       for (int j = 0; j < pos1; j++)
       {
         trialVector[i][j] = targetVector[i][j];
