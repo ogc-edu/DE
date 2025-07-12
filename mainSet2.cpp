@@ -26,13 +26,13 @@
 #include <chrono>
 
 using namespace std;
-const int gen = 2000, dimension = 30, pSize = 100;
+const int gen = 2000, dimension = 30, pSize = 40;
 float CR = 0.00, f = 0.0;
 
 void set1(float *cr, float *f)
 {
-  *cr = 0.80;
-  *f = 0.30;
+  *cr = 0.90;
+  *f = 0.50;
 }
 
 double average(double array[])
