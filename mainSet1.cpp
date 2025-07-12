@@ -89,7 +89,7 @@ int main()
           int bestPos;
           updateRange(&rangeMin, &rangeMax, bench);                         // update min and max range according to benchmark function
           init(positionVector, rangeMin, rangeMax, pSize, &bestPos, bench); // initialize position vectors
-
+          cout << "Entering mutation" << endl;
           for (int i = 0; i < gen; i++) // start iteration for 2000 generations
           {
             switch (m) // mutation scheme
@@ -171,4 +171,4 @@ int main()
   };
 }
 
-// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binomial.exe
+// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./mainSet1.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binomial.exe
