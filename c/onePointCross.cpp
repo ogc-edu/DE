@@ -1,5 +1,5 @@
 #include <iostream>
-#include "random.h";
+#include "../random.h"
 
 using namespace std;
 
@@ -20,6 +20,13 @@ void onePointCross(double targetVector[][30], double mutantVector[][30], double 
       for (int j = pos; j < 30; j++) // start from pos taken from mutant vector
       {
         trialVector[i][j] = mutantVector[i][j];
+      }
+    }
+    else // trial vector copies from target vector
+    {
+      for (int j = 0; j < 30; j++)
+      {
+        trialVector[i][j] = targetVector[i][j];
       }
     }
   }

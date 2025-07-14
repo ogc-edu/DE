@@ -1,5 +1,5 @@
 #include <iostream>
-#include "random.h"
+#include "../random.h"
 #include <algorithm>
 #define dimension 30
 
@@ -17,7 +17,7 @@ void twoPointCross(double targetVector[][30], double mutantVector[][30], double 
       {
         pos1 = generateRandomFloat() * dimension;
         pos2 = generateRandomFloat() * dimension;
-      } while (pos1 != pos2); // ensure unique pos and duplicated parent
+      } while (pos1 == pos2); // ensure unique pos and duplicated parent
 
       if (pos1 > pos2)
       { // ensure pos1 always before pos2
@@ -33,11 +33,18 @@ void twoPointCross(double targetVector[][30], double mutantVector[][30], double 
         trialVector[i][j] = mutantVector[i][j];
       }
       if (pos2 < dimension - 1)
-      { // if starting point is not last dimension(29)
+      { // if starting point is not last dimension(29), if last dimension no need third segment copies
         for (int j = pos2 + 1; j < dimension; j++)
         {
           trialVector[i][j] = targetVector[i][j];
         }
+      }
+    }
+    else // crossover does not happen
+    {
+      for (int j = 0; j < 30; j++)
+      {
+        trialVector[i][j] = targetVector[i][j];
       }
     }
   }
