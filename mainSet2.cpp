@@ -26,7 +26,7 @@
 #include <chrono>
 
 using namespace std;
-const int gen = 2000, dimension = 30, pSize = 40;
+const int gen = 2000, dimension = 30, pSize = 100;
 float CR = 0.00, f = 0.0;
 
 void set1(float *cr, float *f)

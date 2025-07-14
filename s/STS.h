@@ -1,1 +1,0 @@
-void sts(double[][30], double[][30], int ss, int np, int bench);
