@@ -1,1 +1,1 @@
-void sts(double positionVector[][30], double trialVector[][30], int bench);
+void sts(double[][30], double[][30], int);
