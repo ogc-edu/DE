@@ -1,1 +1,1 @@
-void sts(double[][30], double[][30], int);
+void sts(double[][30], double[][30], int, int);

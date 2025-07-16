@@ -51,7 +51,19 @@ int main()
     std::cout << std::endl;
   }
 
-  sts(positionVector, trialVector, 2);
+  sts(positionVector, trialVector, 2, 10);
+
+  std::cout << "After STS" << std::endl;
+
+  for (int j = 0; j < 10; j++)
+  {
+    std::cout << "target vector " << j + 1 << ": ";
+    for (int i = 0; i < 30; i++)
+    {
+      std::cout << positionVector[j][i] << " ";
+    }
+    std::cout << std::endl;
+  }
   return 0;
 }
 

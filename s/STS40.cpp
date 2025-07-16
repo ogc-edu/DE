@@ -13,9 +13,6 @@ struct vectorFitness // just to keep vectors with assoc fitness value
   double fitnessValue;
 };
 
-int remainingVectors;
-bool hasRemainder;
-
 void STSFilter(double TAS[2][30], double TRS[2][30], int bench, double bestVectors[2][30], bool hasRemainder, int vectorCount)
 {
   int unionSize = hasRemainder ? vectorCount * 2 : 4; // remainder case: vectorCount*2, normal: 4
@@ -44,10 +41,11 @@ void STSFilter(double TAS[2][30], double TRS[2][30], int bench, double bestVecto
   }
 }
 
-void sts(double positionVector[][30], double trialVector[][30], int bench)
+void sts(double positionVector[][30], double trialVector[][30], int bench, int np)
 {
+  int remainingVectors;
+  bool hasRemainder;
   int subsetNumber = 0;
-  int np = 40;
   const int ss = 2;           // subset number
   double bestVectors[ss][30]; // to keep best vectors dimensions
   if (np % ss == 0)           // determine number of subset
@@ -62,6 +60,8 @@ void sts(double positionVector[][30], double trialVector[][30], int bench)
   }
   double TAS[ss][30], TRS[ss][30]; // assigned per subset number, get replaced for each new subset
   int pos = generateRandomFloat() * np;
+  cout << "The starting pos is " << pos << endl;
+  cout << "subset num is " << subsetNumber << endl;
   for (int i = 0; i < subsetNumber; i++) // ensure loop is iterated n times, where n = number of subset
   /*
   in each subset do 3 things
@@ -70,9 +70,11 @@ void sts(double positionVector[][30], double trialVector[][30], int bench)
   3. Paste ss vectors into position vector
   */
   {
+    int cur; // use to track pos
     if (hasRemainder && i == subsetNumber - 1)
-    { // if has remainder, last subset will have less than ss vectors
-      remainingVectors = np % ss;
+    {
+      cout << "Has remainder" << endl;  // if has remainder, last subset will have less than ss vectors
+      remainingVectors = np - (ss * i); // get the number of remaining vectors
       for (int j = 0; j < remainingVectors; j++)
       {
         for (int k = 0; k < 30; k++)
@@ -83,24 +85,7 @@ void sts(double positionVector[][30], double trialVector[][30], int bench)
         pos++;
         pos %= 40; // ensure within boundary of np
       }
-    }
-    else // no remainder
-    {
-      for (int j = 0; j < ss; j++) // copy dimension of target and trial vector to TAS and TRS
-      {
-        for (int k = 0; k < 30; k++)
-        {
-          TAS[j][k] = positionVector[pos][k];
-          TRS[j][k] = trialVector[pos][k];
-        }
-        pos++;
-        pos %= 40; // ensure within boundary of np
-      }
-    }
-    // compare fitness value, filter the best ss vectors
-    int cur; // use to track pos
-    if (hasRemainder && i == subsetNumber - 1)
-    {
+      // compare fitness value, filter the best ss vectors
       STSFilter(TAS, TRS, bench, bestVectors, true, remainingVectors); // pass remainder info
       for (int j = 0; j < remainingVectors; j++)
       {
@@ -111,17 +96,30 @@ void sts(double positionVector[][30], double trialVector[][30], int bench)
         }
       }
     }
-    else
+    else // no remainder
     {
-      STSFilter(TAS, TRS, bench, bestVectors, false, ss); // normal case
+      int basePos = pos; // Save the starting position
       for (int j = 0; j < ss; j++)
       {
         for (int k = 0; k < 30; k++)
         {
-          cur = (pos - j + np) % np; // ensure boundary e.g: pos = 0
+          TAS[j][k] = positionVector[pos][k];
+          TRS[j][k] = trialVector[pos][k];
+        }
+        pos = (pos + 1) % np;
+      }
+
+      STSFilter(TAS, TRS, bench, bestVectors, false, ss);
+
+      for (int j = 0; j < ss; j++)
+      {
+        int cur = (basePos + j) % np;
+        for (int k = 0; k < 30; k++)
+        {
           positionVector[cur][k] = bestVectors[j][k];
         }
       }
     }
-  }
-};
+    cout << "Subset finished" << endl;
+  };
+}
