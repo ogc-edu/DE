@@ -140,6 +140,7 @@ int main()
             exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
 
             greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
+
           } // end of each generation
 
           outFileMin << setprecision(30) << bestFitness << endl; // output best fitness throughout 2000 gen(one iteration)

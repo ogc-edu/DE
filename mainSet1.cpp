@@ -49,14 +49,14 @@ int main()
 {
   try
   {
-    // ofstream outFileMin("binomial.txt", ios::trunc);            // output best solution in each generation
-    // ofstream outFileAverage("binomialAverage.txt", ios::trunc); // output average best solution for each 10 iterations
-    // ofstream outTime("binomialTime.txt", ios::trunc);           // output time taken for each iteration
-    // ofstream outAverageTime("binomialAvgTime.txt", ios::trunc);
-    ofstream outFileMin("exponential.txt", ios::trunc);
-    ofstream outFileAverage("exponentialAverage.txt", ios::trunc);
-    ofstream outTime("exponentialTime.txt", ios::trunc);
-    ofstream outAverageTime("exponentialAvgTime.txt", ios::trunc);
+    ofstream outFileMin("binomial.txt", ios::trunc);            // output best solution in each generation
+    ofstream outFileAverage("binomialAverage.txt", ios::trunc); // output average best solution for each 10 iterations
+    ofstream outTime("binomialTime.txt", ios::trunc);           // output time taken for each iteration
+    ofstream outAverageTime("binomialAvgTime.txt", ios::trunc);
+    // ofstream outFileMin("exponential.txt", ios::trunc);
+    // ofstream outFileAverage("exponentialAverage.txt", ios::trunc);
+    // ofstream outTime("exponentialTime.txt", ios::trunc);
+    // ofstream outAverageTime("exponentialAvgTime.txt", ios::trunc);
     for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
     {
       for (int m = 0; m < 10; m++) // mutation loop
@@ -89,8 +89,7 @@ int main()
           int bestPos;
           updateRange(&rangeMin, &rangeMax, bench);                         // update min and max range according to benchmark function
           init(positionVector, rangeMin, rangeMax, pSize, &bestPos, bench); // initialize position vectors
-          cout << "Entering mutation" << endl;
-          for (int i = 0; i < gen; i++) // start iteration for 2000 generations
+          for (int i = 0; i < gen; i++)                                     // start iteration for 2000 generations
           {
             switch (m) // mutation scheme
             {
@@ -138,8 +137,8 @@ int main()
               break;
             }
 
-            // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-            exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
 
             greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
           } // end of each generation

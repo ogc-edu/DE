@@ -7,7 +7,7 @@
 
 using namespace std;
 
-float fv = 0;
+double fv = 0;
 double sumFit = 0;
 
 double fitness(double a[], int bench)
@@ -71,21 +71,21 @@ double fitness(double a[], int bench)
     }
     else if (bench == 5)
     {
-        // Ackley
-        float firstPartX = 0, firstPart = 0, secondPartX = 0, secondPart;
+        // ackley
+        double firstPartX = 0, secondPartX = 0;
         for (int i = 0; i < dimension; i++)
         {
-            firstPartX += pow(a[i], 2);
-            secondPartX += cos(2 * M_PI * a[i]);
+            firstPartX += a[i] * a[i];
+            secondPartX += cos(2.0 * M_PI * a[i]);
         }
-        firstPart = -20 * exp(-0.2 * sqrt(firstPartX / dimension));
-        secondPart = exp((1 / dimension) * secondPartX);
-        return (firstPart - secondPart + 20 + exp(1));
+        double firstPart = -20 * exp(-0.2 * sqrt(firstPartX / 30));
+        double secondPart = -exp(secondPartX / 30);
+        return 20 + exp(1) + firstPart + secondPart;
     }
     else if (bench == 6)
     {
         // rastrigin
-        float firstPart = 10 * dimension;
+        double firstPart = 10 * dimension;
         for (int i = 0; i < dimension; i++)
         {
             fv = pow(a[i], 2) - 10 * cos(2 * M_PI * a[i]);
@@ -96,7 +96,7 @@ double fitness(double a[], int bench)
     else if (bench == 7)
     {
         // Zakharov
-        float x1 = 0, x2 = 0;
+        double x1 = 0, x2 = 0;
         for (int i = 0; i < dimension; i++)
         {
             x1 += pow(a[i], 2);
@@ -110,7 +110,7 @@ double fitness(double a[], int bench)
     else if (bench == 8)
     {
         // griewank
-        float sumFit1 = 0, sumFit2 = 1;
+        double sumFit1 = 0, sumFit2 = 1;
         for (int i = 0; i < dimension; i++)
         {
             sumFit1 += pow(a[i], 2);
@@ -122,9 +122,10 @@ double fitness(double a[], int bench)
     else if (bench == 9)
     {
         // Quartic with Noise function
+        double sumFit = 0;
         for (int i = 0; i < dimension; i++)
         {
-            sumFit += ((i + 1) * pow(a[i], 4));
+            sumFit += (i + 1) * pow(a[i], 4);
         }
         return sumFit + generateRandomFloat();
     }
