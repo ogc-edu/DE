@@ -10,7 +10,9 @@ void onePointCross(double targetVector[][30], double mutantVector[][30], double 
     float rand = generateRandomFloat(); // generate random float for each target vector
     if (rand <= Cr)
     {
+      // std::cout << "Crossover happened for vector " << i + 1;
       int pos = generateRandomFloat() * 30;
+      // std::cout << "\tPosition: " << pos + 1 << std::endl;
       if (pos == 0)
         pos = 1;                    // ensure trial vector is diff from parents
       for (int j = 0; j < pos; j++) // before pos taken from target vector

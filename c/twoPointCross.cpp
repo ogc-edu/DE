@@ -13,12 +13,14 @@ void twoPointCross(double targetVector[][30], double mutantVector[][30], double 
     if (rand <= Cr)
     {
       int pos1, pos2;
+      // std::cout << "Crossover happened for vector " << i + 1;
       do
       {
-        pos1 = generateRandomFloat() * dimension;
+        pos1 = generateRandomFloat() * dimension; //[0, 29]
         pos2 = generateRandomFloat() * dimension;
       } while (pos1 == pos2); // ensure unique pos and duplicated parent
-
+      // std::cout << "\tPosition1: " << pos1 + 1 << std::endl;
+      // std::cout << "\tPosition2: " << pos2 + 1 << std::endl;
       if (pos1 > pos2)
       { // ensure pos1 always before pos2
         swap(pos1, pos2);
