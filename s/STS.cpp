@@ -22,6 +22,8 @@ int calculateSubsetSize(int np)
     return 6;
   else if (np == 150)
     return 12;
+  else if (np == 10)
+    return 2;
   else
   {
     cout << "Wrong np inserted, please check" << endl;
@@ -136,14 +138,29 @@ void sts(double positionVector[][30], double trialVector[][30], int bench, int n
     // filter to get the best vectors
     STSFilter(TAS, TRS, bench, bestVectors, currentVectorCount);
 
-    // Copy best vectors back to position vector IN POSITIONAL ORDER
-    // Best vector goes to lowest position, second best to second lowest, etc.
+    // Copy best vectors back to position vector RANDOMLY
+    // Extract positions and shuffle them for random assignment
+    vector<int> targetPositions(currentVectorCount);
     for (int j = 0; j < currentVectorCount; j++)
     {
-      int targetPos = positionMapping[j].second; // Get the j-th lowest position
+      targetPositions[j] = positionMapping[j].second; // Extract all positions
+    }
+
+    // Shuffle positions randomly using Fisher-Yates shuffle
+    for (int j = currentVectorCount - 1; j > 0; j--)
+    {
+      int randomIndex = static_cast<int>(generateRandomFloat() * (j + 1));
+      swap(targetPositions[j], targetPositions[randomIndex]);
+    }
+
+    // Assign best vectors to randomly shuffled positions
+    // Best vector goes to random position, 2nd best to different random position, etc.
+    for (int j = 0; j < currentVectorCount; j++)
+    {
+      int targetPos = targetPositions[j]; // Get j-th shuffled position
       for (int k = 0; k < 30; k++)
       {
-        positionVector[targetPos][k] = bestVectors[j][k]; // j-th best vector
+        positionVector[targetPos][k] = bestVectors[j][k]; // j-th best vector to random position
       }
     }
 

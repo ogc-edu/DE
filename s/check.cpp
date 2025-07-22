@@ -47,6 +47,7 @@ int main()
   //   }
   //   std::cout << std::endl;
   // }
+
   Best3Mutation(positionVector, mutantVector, np, 0.80, rangeMin, rangeMax, 2, bestPos);
   binomialCrossover(positionVector, mutantVector, trialVector, 0.30, np);
   for (int j = 0; j < np; j++)
@@ -64,6 +65,7 @@ int main()
     std::cout << "\ntarget vector " << j + 1 << ": ";
     std::cout << fitness(positionVector[j], bench) << std::endl;
   }
+
   return 0;
 }
 
