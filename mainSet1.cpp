@@ -16,7 +16,10 @@
 
 #include "./c/binomialCross.h"
 #include "./c/exponentialCross.h"
+#include "./c/onePointCross.h"
+#include "./c/twoPointCross.h"
 #include "./s/greedySelection.h"
+#include "./s/STS.h"
 
 #include <vector>
 #include <math.h>
@@ -137,10 +140,13 @@ int main()
               break;
             }
 
-            binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            // onePointCross(positionVector, mutantVector, trialVector, CR, pSize);
+            twoPointCross(positionVector, mutantVector, trialVector, CR, pSize);
 
-            greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
+            // greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
+            sts(positionVector, trialVector, bench, pSize);
           } // end of each generation
 
           outFileMin << setprecision(30) << bestFitness << endl; // output best fitness throughout 2000 gen(one iteration)

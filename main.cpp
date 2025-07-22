@@ -29,13 +29,25 @@
 #include <chrono>
 
 using namespace std;
-const int gen = 2000, dimension = 30, pSize = 100;
+const int gen = 2000, dimension = 30, pSize = 40;
 float CR = 0.00, f = 0.0;
 
 void set1(float *cr, float *f)
 {
+  *cr = 0.80;
+  *f = 0.30;
+}
+
+void set2(float *cr, float *f)
+{
   *cr = 0.90;
   *f = 0.50;
+}
+
+void set3(float *cr, float *f)
+{
+  *cr = 0.80;
+  *f = 0.30;
 }
 
 double average(double array[])
@@ -52,14 +64,14 @@ int main()
 {
   try
   {
-    // ofstream outFileMin("binomial.txt", ios::trunc);            // output best solution in each generation
-    // ofstream outFileAverage("binomialAverage.txt", ios::trunc); // output average best solution for each 10 iterations
-    // ofstream outTime("binomialTime.txt", ios::trunc);           // output time taken for each iteration
-    // ofstream outAverageTime("binomialAvgTime.txt", ios::trunc);
-    ofstream outFileMin("exponential.txt", ios::trunc);
-    ofstream outFileAverage("exponentialAverage.txt", ios::trunc);
-    ofstream outTime("exponentialTime.txt", ios::trunc);
-    ofstream outAverageTime("exponentialAvgTime.txt", ios::trunc);
+    ofstream outFileMin("binomial.txt", ios::trunc);            // output best solution in each generation
+    ofstream outFileAverage("binomialAverage.txt", ios::trunc); // output average best solution for each 10 iterations
+    ofstream outTime("binomialTime.txt", ios::trunc);           // output time taken for each iteration
+    ofstream outAverageTime("binomialAvgTime.txt", ios::trunc);
+    // ofstream outFileMin("exponential.txt", ios::trunc);
+    // ofstream outFileAverage("exponentialAverage.txt", ios::trunc);
+    // ofstream outTime("exponentialTime.txt", ios::trunc);
+    // ofstream outAverageTime("exponentialAvgTime.txt", ios::trunc);
     for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
     {
       for (int m = 0; m < 10; m++) // mutation loop
@@ -70,6 +82,8 @@ int main()
         {
           auto start = chrono::high_resolution_clock::now();
           set1(&CR, &f);
+          // set2(&CR, &f);
+          // set3(&CR, &f);
           double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension];
           double bestSolution[30];
           double bestFitness = pow(99, 99);
@@ -139,6 +153,7 @@ int main()
             default:
               break;
             }
+
             // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // onePointCross(positionVector, mutantVector, trialVector, CR, pSize);
@@ -170,10 +185,9 @@ int main()
   }
   catch (const exception &e)
   {
-    cout << "Error" << endl;
     cerr << "An exception occurred: " << e.what() << endl;
     exit(1);
   };
 }
 
-// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./mainSet2.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binomial.exe
+// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binomial.exe
