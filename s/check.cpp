@@ -2,7 +2,6 @@
 #include "../init.h"
 #include "../random.h"
 #include "../fitnessEvaluation.h"
-#include "../s/STS40.h"
 #include "../m/best3.h"
 #include "../c/binomialCross.h"
 #include "../m/unique.h"

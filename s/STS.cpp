@@ -3,7 +3,7 @@
 #include "../random.h"
 #include <vector>
 #include <algorithm>
-#include "./STS40.h"
+#include "./STS.h"
 
 using namespace std;
 
@@ -24,9 +24,8 @@ int calculateSubsetSize(int np)
     return 12;
   else
   {
-    // Default case - you may want to add more specific values or handle error
-    cout << "Warning: No specific subset size defined for np=" << np << ", using default ss=2" << endl;
-    return 2;
+    cout << "Wrong np inserted, please check" << endl;
+    exit(1);
   }
 }
 
@@ -50,10 +49,10 @@ void STSFilter(vector<vector<double>> &TAS, vector<vector<double>> &TRS, int ben
        { return a.fitnessValue < b.fitnessValue; });
 
   // select the best vectorCount vectors
-  bestVectors.resize(vectorCount);
+  bestVectors.resize(vectorCount); // resize to fit in last remaining vector size
   for (int i = 0; i < vectorCount; i++)
   {
-    bestVectors[i].resize(30);
+    bestVectors[i].resize(30); // make sure size is always 30
     for (int j = 0; j < 30; j++)
     {
       bestVectors[i][j] = unionSet[i].vector[j];
@@ -122,7 +121,7 @@ void sts(double positionVector[][30], double trialVector[][30], int bench, int n
       pos = (pos + 1) % np; // Move to next position with wraparound
     }
 
-    // Sort positions to get proper STS assignment order
+    // Sort positions using sort algorithm
     vector<pair<int, int>> positionMapping; // pair<originalIndex, position>
     for (int j = 0; j < currentVectorCount; j++)
     {
@@ -134,7 +133,7 @@ void sts(double positionVector[][30], double trialVector[][30], int bench, int n
            return a.second < b.second; // Sort by position
          });
 
-    // Filter to get the best vectors
+    // filter to get the best vectors
     STSFilter(TAS, TRS, bench, bestVectors, currentVectorCount);
 
     // Copy best vectors back to position vector IN POSITIONAL ORDER
@@ -148,6 +147,6 @@ void sts(double positionVector[][30], double trialVector[][30], int bench, int n
       }
     }
 
-    cout << "Subset " << i + 1 << " finished (processed " << currentVectorCount << " vectors)" << endl;
+    cout << "Subset " << i + 1 << " finished, processed " << currentVectorCount << " vectors" << endl;
   }
 }
