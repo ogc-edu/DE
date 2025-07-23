@@ -62,7 +62,7 @@ void STSFilter(vector<vector<double>> &TAS, vector<vector<double>> &TRS, int ben
   }
 }
 
-void sts(double positionVector[][30], double trialVector[][30], int bench, int np)
+void sts(double positionVector[][30], double trialVector[][30], int bench, int np, double bestSolution[30], double *pastBestFV, int *genBestPos)
 {
   int remainingVectors;
   bool hasRemainder;
@@ -81,7 +81,7 @@ void sts(double positionVector[][30], double trialVector[][30], int bench, int n
   }
 
   int pos = generateRandomFloat() * np;
-  cout << "Starting position: " << pos + 1 << endl;
+  // cout << "Starting position: " << pos + 1 << endl;
 
   for (int i = 0; i < subsetNumber; i++) // ensure loop is iterated n times, where n = number of subset
   /*
@@ -164,6 +164,30 @@ void sts(double positionVector[][30], double trialVector[][30], int bench, int n
       }
     }
 
-    cout << "Subset " << i + 1 << " finished, processed " << currentVectorCount << " vectors" << endl;
+    double genLowestFV = pow(30, 30);
+    vector<double> positionFV(np, 0);
+    int bestPos;
+    for (int i = 0; i < np; i++) // find the lowest FV in generation to compare with best solution
+    {
+      positionFV[i] = fitness(positionVector[i], bench);
+    }
+    for (int i = 0; i < np; i++) // find the lowest FV in generation to compare with best solution
+    {
+      if (positionFV[i] < genLowestFV)
+      {
+        genLowestFV = positionFV[i];
+        bestPos = i;
+      }
+    }
+    if (positionFV[bestPos] < *pastBestFV)
+    {
+      *pastBestFV = positionFV[bestPos];
+      *genBestPos = bestPos;
+      for (int i = 0; i < 30; i++)
+      {
+        bestSolution[i] = positionVector[bestPos][i];
+      }
+    }
+    // cout << "Subset " << i + 1 << " finished, processed " << currentVectorCount << " vectors" << endl;
   }
 }

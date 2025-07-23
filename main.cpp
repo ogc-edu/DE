@@ -62,16 +62,13 @@ double average(double array[])
 
 int main()
 {
+  cout << "Hello World" << endl;
   try
   {
-    ofstream outFileMin("binomial.txt", ios::trunc);            // output best solution in each generation
-    ofstream outFileAverage("binomialAverage.txt", ios::trunc); // output average best solution for each 10 iterations
-    ofstream outTime("binomialTime.txt", ios::trunc);           // output time taken for each iteration
-    ofstream outAverageTime("binomialAvgTime.txt", ios::trunc);
-    // ofstream outFileMin("exponential.txt", ios::trunc);
-    // ofstream outFileAverage("exponentialAverage.txt", ios::trunc);
-    // ofstream outTime("exponentialTime.txt", ios::trunc);
-    // ofstream outAverageTime("exponentialAvgTime.txt", ios::trunc);
+    ofstream outFileMin("expGreedy1.txt", ios::trunc);        // output best solution in each generation
+    ofstream outFileAverage("expGreedyAvg1.txt", ios::trunc); // output average best solution for each 10 iterations
+    ofstream outTime("expGreedyTime1.txt", ios::trunc);       // output time taken for each iteration
+    ofstream outAverageTime("expGreedyAvgTime1.txt", ios::trunc);
     for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
     {
       for (int m = 0; m < 10; m++) // mutation loop
@@ -155,12 +152,12 @@ int main()
             }
 
             // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-            // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // onePointCross(positionVector, mutantVector, trialVector, CR, pSize);
-            twoPointCross(positionVector, mutantVector, trialVector, CR, pSize);
+            // twoPointCross(positionVector, mutantVector, trialVector, CR, pSize);
 
-            // greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
-            sts(positionVector, trialVector, bench, pSize);
+            greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
+            sts(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos);
           } // end of each generation
 
           outFileMin << setprecision(30) << bestFitness << endl; // output best fitness throughout 2000 gen(one iteration)
@@ -190,4 +187,4 @@ int main()
   };
 }
 
-// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binomial.exe
+// g++ ./m/unique.cpp ./m/best1.cpp ./m/best2.cpp ./m/best3.cpp ./m/currentToBest1.cpp ./m/currentToBest2.cpp ./m/currentToRand1.cpp ./m/currentToRand2.cpp ./m/rand1.cpp ./m/rand2.cpp ./m/rand3.cpp random.cpp ./main.cpp ./c/exponentialCross.cpp ./c/binomialCross.cpp ./s/greedySelection.cpp ./s/STS.cpp ./c/onePointCross.cpp ./c/twoPointCross.cpp init.cpp fitnessEvaluation.cpp -o ./exe/binGreedy.exe

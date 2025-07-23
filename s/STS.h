@@ -1,1 +1,1 @@
-void sts(double positionVector[][30], double trialVector[][30], int bench, int np);
+void sts(double positionVector[][30], double trialVector[][30], int bench, int np, double bestSolution[30], double *pastBestFV, int *genBestPos);
