@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "./STS.h"
+#include <cmath>
 
 using namespace std;
 

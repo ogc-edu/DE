@@ -65,10 +65,10 @@ int main()
   cout << "Hello World" << endl;
   try
   {
-    ofstream outFileMin("expGreedy1.txt", ios::trunc);        // output best solution in each generation
-    ofstream outFileAverage("expGreedyAvg1.txt", ios::trunc); // output average best solution for each 10 iterations
-    ofstream outTime("expGreedyTime1.txt", ios::trunc);       // output time taken for each iteration
-    ofstream outAverageTime("expGreedyAvgTime1.txt", ios::trunc);
+    ofstream outFileMin("binSTS1.txt", ios::trunc);        // output best solution in each generation
+    ofstream outFileAverage("binSTSAvg1.txt", ios::trunc); // output average best solution for each 10 iterations
+    ofstream outTime("binSTSTime1.txt", ios::trunc);       // output time taken for each iteration
+    ofstream outAverageTime("binSTSAvgTime1.txt", ios::trunc);
     for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
     {
       for (int m = 0; m < 10; m++) // mutation loop
@@ -151,12 +151,12 @@ int main()
               break;
             }
 
-            // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
-            exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // onePointCross(positionVector, mutantVector, trialVector, CR, pSize);
             // twoPointCross(positionVector, mutantVector, trialVector, CR, pSize);
 
-            greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
+            // greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
             sts(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos);
           } // end of each generation
 
