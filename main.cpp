@@ -65,10 +65,10 @@ int main()
   cout << "Hello World" << endl;
   try
   {
-    ofstream outFileMin("bs.txt", ios::trunc);        // output best solution in each generation
-    ofstream outFileAverage("bsAvg.txt", ios::trunc); // output average best solution for each 10 iterations
-    ofstream outTime("bsTime.txt", ios::trunc);       // output time taken for each iteration
-    ofstream outAverageTime("bsTimeAvg.txt", ios::trunc);
+    ofstream outFileMin("ts.txt", ios::trunc);        // output best solution in each generation
+    ofstream outFileAverage("tsAvg.txt", ios::trunc); // output average best solution for each 10 iterations
+    ofstream outTime("tsTime.txt", ios::trunc);       // output time taken for each iteration
+    ofstream outAverageTime("tsTimeAvg.txt", ios::trunc);
     for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
     {
       for (int m = 0; m < 10; m++) // mutation loop
@@ -79,8 +79,8 @@ int main()
         {
           auto start = chrono::high_resolution_clock::now();
           // set1(&CR, &f);
-          set2(&CR, &f);
-          // set3(&CR, &f);
+          // set2(&CR, &f);
+          set3(&CR, &f);
           double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension];
           double bestSolution[30];
           double bestFitness = pow(99, 99);
@@ -151,10 +151,10 @@ int main()
               break;
             }
 
-            binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
+            // binomialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // exponentialCrossover(positionVector, mutantVector, trialVector, CR, pSize);
             // onePointCross(positionVector, mutantVector, trialVector, CR, pSize);
-            // twoPointCross(positionVector, mutantVector, trialVector, CR, pSize);
+            twoPointCross(positionVector, mutantVector, trialVector, CR, pSize);
 
             // greedySelection(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos); // update bestPos here
             sts(positionVector, trialVector, bench, pSize, bestSolution, &bestFitness, &bestPos);
