@@ -29,7 +29,7 @@
 #include <chrono>
 
 using namespace std;
-const int gen = 2000, dimension = 30, pSize = 40;
+const int gen = 2000, dimension = 30, pSize = 100;
 float CR = 0.00, f = 0.0;
 
 void set1(float *cr, float *f)
@@ -65,10 +65,10 @@ int main()
   cout << "Hello World" << endl;
   try
   {
-    ofstream outFileMin("binSTS1.txt", ios::trunc);        // output best solution in each generation
-    ofstream outFileAverage("binSTSAvg1.txt", ios::trunc); // output average best solution for each 10 iterations
-    ofstream outTime("binSTSTime1.txt", ios::trunc);       // output time taken for each iteration
-    ofstream outAverageTime("binSTSAvgTime1.txt", ios::trunc);
+    ofstream outFileMin("bs.txt", ios::trunc);        // output best solution in each generation
+    ofstream outFileAverage("bsAvg.txt", ios::trunc); // output average best solution for each 10 iterations
+    ofstream outTime("bsTime.txt", ios::trunc);       // output time taken for each iteration
+    ofstream outAverageTime("bsTimeAvg.txt", ios::trunc);
     for (int bench = 0; bench < 10; bench++) // run different benchmark, one benchmark run 10 models, each model run 10 times
     {
       for (int m = 0; m < 10; m++) // mutation loop
@@ -78,8 +78,8 @@ int main()
         for (int repeat = 0; repeat < 10; repeat++)
         {
           auto start = chrono::high_resolution_clock::now();
-          set1(&CR, &f);
-          // set2(&CR, &f);
+          // set1(&CR, &f);
+          set2(&CR, &f);
           // set3(&CR, &f);
           double positionVector[pSize][dimension], mutantVector[pSize][dimension], trialVector[pSize][dimension];
           double bestSolution[30];
